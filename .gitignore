@@ -1,0 +1,6 @@
+__pycache__
+#.env  // removed in order server to be able to read environment variables
+.dockerignore
+.env
+Dockerfile
+docker-compose.yml
