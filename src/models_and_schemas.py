@@ -8,22 +8,23 @@ import re
 from dotenv import load_dotenv
 import os
 
+
 class Roles(str, Enum):
     user    = "user"
     admin   = "admin"
     
 class BaseUser(SQLModel):
     email       : EmailStr
-    username    : str
+    username    : Optional[str] = None
     is_active   : bool = False
-    roles       : Roles = "user"
+    role        : Roles = "user"
     created_at  : datetime = Field(default=datetime.utcnow(), nullable=False)
     
     @validator('username')
     def username_validator(cls, v):
         if not re.match("^([a-zA-Z0-9_.-]).{5,}$", v) or v.isdigit():
             raise ValueError("Username must be at least 5 alphanumeric characters")
-        return v.title()
+        return v
      
 class User(BaseUser, table = True):
     # primary key for the table

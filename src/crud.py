@@ -1,16 +1,16 @@
 from sqlmodel import Session
+from auth import create_password_hash
 import models_and_schemas
 
 def create_user(db: Session, user: models_and_schemas.UserSchema):
-    hashed_password = user.password + "hashed"
     db_user = models_and_schemas.User(
-        email = user.email,
-        username = user.username,
-        role = user.roles.value,
-        created_at = user.created_at,
-        hashed_password = hashed_password
+        email           = user.email,
+        username        = user.username,
+        role            = user.role.value,
+        created_at      = user.created_at,
+        hashed_password = create_password_hash(user.password)
     )
-    
+    print("user before added into db",db_user)
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
