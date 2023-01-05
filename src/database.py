@@ -11,10 +11,6 @@ POSTGRES_USER       = os.environ["POSTGRES_USER"]
 POSTGRES_NAME       = os.environ["POSTGRES_NAME"]
 POSTGRES_HOST       = os.environ["POSTGRES_HOST"]
 
-print("postgreSql password",POSTGRES_PASSWORD)
-print("postgreSql user",POSTGRES_USER)
-print("postgreSql host",POSTGRES_HOST)
-
 
 # DATABASE_SCHEMA=carbon_footprint 
 # DATABASE_TABLE=carbon_footprint
@@ -34,8 +30,3 @@ def get_db():
 def create_db_and_tables():
     SQLModel.metadata.create_all(engine)
    
-# Remove database file since sqlite gets created locally 
-def shutdown():
-    cwd = Path.cwd().resolve()
-    db_file = [file for file in os.listdir() if file.endswith(".db")][0]
-    os.remove(os.path.join(cwd, db_file))

@@ -1,10 +1,10 @@
 fastapi
 sqlmodel
 uvicorn
-sqlmodel
 passlib
 python-dotenv
 psycopg2-binary
 pydantic[email]
 bcrypt
 python-jose
+fastapi-jwt-auth

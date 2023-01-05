@@ -9,8 +9,7 @@ load_dotenv()
 email = os.environ["EMAIL"]
 password = os.environ["PASSWORD"]
 
-
-def send_mail(to, username, user_id):
+def send_mail(to, first_name, last_name, role, user_id):
     msg = EmailMessage()
     msg.add_alternative(
         f"""\
@@ -20,18 +19,20 @@ def send_mail(to, username, user_id):
   </head>
   <body>
     <div id="box">
-      <h2>Hallo {username},</h2> 
-        <p> Click here to activate the user </p>
+      <h2>{first_name} {last_name} has been registered as {role}</h2> 
+        <p> Click the link below to activate the account </p>
         <a href="http://127.0.0.1:8000/docs#/activate/{user_id}">Click here </a>
       </form>
     </div>
     <footer>
         <div id="container" style="white-space:nowrap">
-            <div id="image" style="display:inline;">
-                <img src="/static/images/environment_image.jpg" style="width:15px; height:15px; "/>
-            </div>
+            <br>
             <div id="texts" style="display:inline; white-space:nowrap;"> 
-                Please consider the environment before printing this email
+                The content of this email is intended for the person or entity to which it is addressed only.
+            </div>
+            <br>
+            <div>
+                If you are not the person to whom this message is addressed, you can just ignore it.
             </div>
         </div>
     </footer>
@@ -76,10 +77,8 @@ def send_mail(to, username, user_id):
         subtype="html",
     )
 
- 
-
 # try:
-    msg["Subject"] = "Confirm of Registration"
+    msg["Subject"] = "User Confirmation Email"
     msg["From"] = email
     msg["To"] = to
     # Send the message via our own SMTP server.
